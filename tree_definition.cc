@@ -7,6 +7,9 @@ TreeNode_s::TreeNode_s( DATA_type  theData)
 	, parent(NULL) 
 	, lchild(NULL) 
 	, rchild(NULL) 
+#ifdef RB_TREE
+	, color(true) 
+#endif
 { 
 }
 void TreeNode_s::ConstructTree( TreeNode_p_t &theTree, TreeNode_p_t parentTree,  char* &theKeyWds)

@@ -3,7 +3,7 @@
 
 #include "tree.h"
 
-//#if 1
+#ifndef RB_TREE
 #define DATA_type char
 struct TreeNode_s {
 	DATA_type data;
@@ -11,8 +11,17 @@ struct TreeNode_s {
 	TreeNode_s( DATA_type  theData);
 	static void ConstructTree( TreeNode_p_t &theTree, TreeNode_p_t parentTree,  char* &theKeyWds);
 };
-//#else
-//#endif
+#else
+//rb_tree
+#define DATA_type int
+struct TreeNode_s {
+	DATA_type data;
+    bool isRed ;
+	struct TreeNode_s *parent, *lchild, *rchild;
+	TreeNode_s( DATA_type  theData);
+	static void ConstructTree( TreeNode_p_t &theTree, TreeNode_p_t parentTree,  char* &theKeyWds);
+};
+#endif
 
 void Trav_inorder_goto(TreeNode_p_t root, funcVisitor fn);
 void Trav_preorder_goto(TreeNode_p_t root, funcVisitor fn);

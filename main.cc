@@ -1,6 +1,7 @@
 #include "tree.h"
 #include <iostream>
 
+#define RB_TREE
 void printNode(TreeNode_p_t node)
 {
     const char* data =NULL;
