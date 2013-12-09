@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "tree_travel.h"
 #include "stdio.h"
 #include <assert.h>
 
@@ -9,7 +9,7 @@ TreeNode_s::TreeNode_s( DATA_type  theData)
 	, rchild(NULL) 
 { 
 }
-void TreeNode_s::ConstructTree( struct TreeNode_s* &theTree, struct TreeNode_s * parentTree,  char* &theKeyWds)
+void TreeNode_s::ConstructTree( TreeNode_p_t &theTree, TreeNode_p_t parentTree,  char* &theKeyWds)
 {
 	if(!theKeyWds)
 		return;
@@ -32,5 +32,15 @@ void TreeNode_s::ConstructTree( struct TreeNode_s* &theTree, struct TreeNode_s *
 
 
 
+void TREE_constuct( TreeNode_p_t &theTree, TreeNode_p_t parentTree,  char* &theKeyWds)
+{
+    return TreeNode_s::ConstructTree(theTree, parentTree, theKeyWds);
+}
 
+void TREE_get_node_value( TreeNode_p_t &theTree, const void** data )
+{
+    if(!theTree)
+        return ;
+    *data = &theTree->data;
+}
 

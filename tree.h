@@ -3,12 +3,8 @@
 
 #define DATA_type char
 
-typedef struct TreeNode_s {
-	DATA_type data;
-	struct TreeNode_s *parent, *lchild, *rchild;
-	TreeNode_s( DATA_type  theData);
-	static void ConstructTree( struct TreeNode_s* &theTree, struct TreeNode_s * parentTree,  char* &theKeyWds);
-}TreeNode_t, *TreeNode_p_t;
+typedef struct TreeNode_s TreeNode_t;
+typedef struct TreeNode_s* TreeNode_p_t;
 
 
 typedef enum TRAVEL_type_e {
@@ -27,6 +23,8 @@ typedef void (*funcVisitor) ( TreeNode_p_t node);
 typedef void (*funcTravel) ( TreeNode_p_t root, funcVisitor fn);
 
 extern void TREE_traverse(TRAVEL_type_t mode, TreeNode_p_t root, funcVisitor fn);
+extern void TREE_constuct( TreeNode_p_t &theTree, TreeNode_p_t  parentTree,  char* &theKeyWds);
+extern void TREE_get_node_value( TreeNode_p_t &theTree, const void** data );
 
 
 

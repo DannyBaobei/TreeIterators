@@ -1,9 +1,12 @@
 #include "tree.h"
 #include <iostream>
+#include <stdio.h>
 
 void printNode(TreeNode_p_t node)
 {
-	std::cout<<node->data;
+    const char* data =NULL;
+    TREE_get_node_value(node, (const void **) &data);
+	printf("%c", *((const char* )data));
 }
 
 
@@ -39,7 +42,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 	TreeNode_p_t aTree = NULL;
-	TreeNode_s::ConstructTree( aTree, NULL, argv[1]);
+	TREE_constuct( aTree, NULL, argv[1]);
 
 	for (int i= 0; i<sizeof(process)/sizeof(TEST_procedure_t); ++i)
 		TEST_method(aTree, process[i].type, process[i].msg);
