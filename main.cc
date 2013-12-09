@@ -1,12 +1,11 @@
 #include "tree.h"
 #include <iostream>
-#include <stdio.h>
 
 void printNode(TreeNode_p_t node)
 {
     const char* data =NULL;
     TREE_get_node_value(node, (const void **) &data);
-	printf("%c", *((const char* )data));
+    std::cout<< *data;
 }
 
 
