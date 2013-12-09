@@ -11,7 +11,7 @@ endif()
 
 set (ROOT  "./"  )
 set (DATE_SOURCE "${ROOT}/main.cc" 
-		"${ROOT}/tree_defination.cc" 
+		"${ROOT}/tree_definition.cc" 
 		"${ROOT}/tree_iterator.cc" 
 		"${ROOT}/tree_traverse.cc" 
 		)
