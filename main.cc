@@ -22,11 +22,13 @@ typedef struct TEST_procedure_s{
 TEST_procedure_t process[]={
 	{"pre-order recursive traverse test:",  TRAVEL_R_PRE_ORDER},
 	{"pre-order goto traverse test:",       TRAVEL_G_PRE_ORDER},
+	{"pre-order loop traverse test:",       TRAVEL_L_PRE_ORDER},
 	{"in-order recursive traverse test:",   TRAVEL_R_IN_ORDER},
 	{"in-order goto traverse test:",        TRAVEL_G_IN_ORDER},
+	{"in-order loop traverse test:",        TRAVEL_L_IN_ORDER},
 	{"post-order recursive traverse test:", TRAVEL_R_POST_ORDER},
-	{"post-order goto traverse test:",      TRAVEL_G_POST_ORDER}
-
+	{"post-order goto traverse test:",      TRAVEL_G_POST_ORDER},
+	{"post-order loop traverse test:",      TRAVEL_L_POST_ORDER}
 };
 
 int main(int argc, char* argv[])

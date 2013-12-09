@@ -40,7 +40,36 @@ void Trav_postorder_recur(TreeNode_p_t node, funcVisitor fn)
 
 void Trav_inorder_loop(TreeNode_p_t root, funcVisitor fn)
 {
+    if(!root)
+        return;
+    TreeNode_p_t curr = root;
+    bool leafReturn = false;
+    while(curr) {
+        while (curr->lchild && !leafReturn)
+        {
+            curr = curr->lchild;
+            leafReturn = false;
+        }
+        assert(curr);
+        fn(curr);
 
+        if(curr->rchild) {
+            curr = curr->rchild;
+            leafReturn = false;
+            continue;
+        } else {
+            leafReturn = true;
+            while(curr && curr != root){
+                //curr is leaf
+                bool isVisited = curr == curr->parent->rchild;
+                curr = curr->parent;
+                if (isVisited)
+                    continue ;
+                else
+                    break;
+            }
+        }
+    }
 }
 void Trav_preorder_loop(TreeNode_p_t root, funcVisitor fn)
 {
@@ -64,15 +93,12 @@ void Trav_inorder_goto(TreeNode_p_t root, funcVisitor fn)
 	assert(curr);
 	fn(curr);
 
-	if(curr->rchild)
-	{
+	if(curr->rchild) {
 		curr = curr->rchild;
 		goto trval_start;
-	}
-	else
-	{
+	} else {
 	leaf_find_unvisited:
-		if(curr == root || curr == NULL)
+		if(curr == root || !curr )
 			goto trval_end;
 
 		//curr is leaf
@@ -107,7 +133,7 @@ void Trav_preorder_goto(TreeNode_p_t root, funcVisitor fn)
 	else
 	{
 	leaf_find_unvisited:
-		if(curr == root || curr == NULL)
+		if(curr == root || !curr )
 			goto trval_end;
 
 		bool isRLeaf = curr == curr->parent->rchild;

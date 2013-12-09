@@ -15,10 +15,10 @@ void Trav_inorder_loop(TreeNode_p_t root, funcVisitor fn);
 void Trav_preorder_loop(TreeNode_p_t root, funcVisitor fn);
 void Trav_postorder_loop(TreeNode_p_t root, funcVisitor fn);
 
-struct {
+typedef struct TraverseHandler_s{
 	TRAVEL_type_t type;
 	funcTravel fn;
-}TraverseHandler_s;
+}TraverseHandler_t;
 
 
 
