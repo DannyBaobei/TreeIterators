@@ -1,7 +1,7 @@
 TAGS:
 	ctags -R
 all:TAGS
-	g++ -g  *.cc -o a
+	g++ -g *.cc -o a
 
 test:all
 #A--B--NULL

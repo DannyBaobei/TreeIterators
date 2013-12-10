@@ -1,5 +1,5 @@
 #include "tree_definition.h"
-#include "stdio.h"
+#include <cstddef>
 #include <assert.h>
 
 TreeNode_s::TreeNode_s( DATA_type  theData)
@@ -23,11 +23,12 @@ void TreeNode_s::ConstructTree( TreeNode_p_t &theTree, TreeNode_p_t parentTree, 
 		theTree = new TreeNode_s(*theKeyWds); 
 		theTree->parent = parentTree;
 		assert(theTree);
-
-		if(++theKeyWds == NULL)
+        ++theKeyWds;
+        if(!theKeyWds || *theKeyWds == '\0')
 			return;
 		ConstructTree(theTree->lchild, theTree, theKeyWds);
-		if(++theKeyWds == NULL)
+        ++theKeyWds;
+		if(!theKeyWds|| *theKeyWds == '\0')
 			return;
 		ConstructTree(theTree->rchild, theTree, theKeyWds);
 	}

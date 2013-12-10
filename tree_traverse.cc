@@ -1,4 +1,5 @@
 #include "tree_definition.h"
+#include <cstddef>
 #include <assert.h>
 
 funcTravel fns[] = {
@@ -98,7 +99,7 @@ void Trav_preorder_loop(TreeNode_p_t root, funcVisitor fn)
 				if(isRLeaf && root  == curr->parent)
 					return;
 
-				TreeNode_p_t next = isRLeaf? curr->parent->parent->rchild : curr->parent->rchild;
+				TreeNode_p_t next = isRLeaf? NULL : curr->parent->rchild;
 				if (next){
 					curr = next;
 					break;
@@ -200,7 +201,7 @@ void Trav_preorder_goto(TreeNode_p_t root, funcVisitor fn)
 		if(isRLeaf && root  == curr->parent)
 			goto trval_end;
 
-		TreeNode_p_t next = isRLeaf? curr->parent->parent->rchild : curr->parent->rchild;
+		TreeNode_p_t next = isRLeaf? NULL : curr->parent->rchild;
 
 		if (next){
 			curr = next;
