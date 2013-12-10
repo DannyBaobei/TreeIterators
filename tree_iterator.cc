@@ -1,5 +1,5 @@
 #include "tree_definition.h"
-#include <iostream>
+#include <cstddef>
 #include <stack>
 
 
@@ -35,9 +35,17 @@ class PostorderIterator : public Iterator {
 	public:
 		PostorderIterator(TreeNode_p_t node) {
 			TreeNode_p_t current = node;
+			mStack.push(current);
 			while (NULL != current) {
-				mStack.push(current);
-				current = current->lchild;
+				if(NULL != current->rchild)
+					mStack.push(current->rchild);
+				if(NULL != current->lchild)
+				{
+					mStack.push(current->lchild);
+					current = current->lchild;
+				}
+				else
+					current = current->rchild;
 			}
 		}
 		virtual TreeNode_p_t next() {
@@ -46,12 +54,17 @@ class PostorderIterator : public Iterator {
 			}
 			TreeNode_p_t top = mStack.top();
 			mStack.pop();
-			if (NULL != top->rchild) {
+			while (NULL != top->rchild) {
 				TreeNode_p_t current = top->rchild;
-				while (NULL != current) {
-					mStack.push(current);
+				if(NULL != current->rchild)
+					mStack.push(current->rchild);
+				if(NULL != current->lchild)
+				{
+					mStack.push(current->lchild);
 					current = current->lchild;
 				}
+				else
+					current = current->rchild;
 			}
 			return top;
 		}
@@ -63,10 +76,10 @@ class PreorderIterator : public Iterator {
 	public:
 		PreorderIterator(TreeNode_p_t node) {
 			TreeNode_p_t current = node;
-			while (NULL != current) {
-				mStack.push(current);
-				current = current->lchild;
-			}
+			if(NULL != current->rchild)
+				mStack.push(current->rchild);
+			mStack.push(current);
+			
 		}
 		virtual TreeNode_p_t next() {
 			if (mStack.empty()) {
@@ -74,12 +87,17 @@ class PreorderIterator : public Iterator {
 			}
 			TreeNode_p_t top = mStack.top();
 			mStack.pop();
-			if (NULL != top->rchild) {
+			if(NULL != top->lchild) {
+				TreeNode_p_t current = top->lchild;
+				if(NULL != current->rchild)
+					mStack.push(current->rchild);
+				mStack.push(current);
+			}else if(NULL != top->rchild){
+				mStack.pop();
 				TreeNode_p_t current = top->rchild;
-				while (NULL != current) {
-					mStack.push(current);
-					current = current->lchild;
-				}
+				if(NULL != current->rchild)
+					mStack.push(current->rchild);
+				mStack.push(current);
 			}
 			return top;
 		}
