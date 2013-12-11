@@ -4,14 +4,10 @@ all:TAGS
 	g++ -g *.cc -o a
 
 test:all
-#A--B--NULL
-#    --D
-#   C--E--NULL
-#       --F
-# pre   ,  in   , post
-# ADBCEF, BDAEFC, DBFECA
-	./a AB#D##CE#F####
+	./a
 
+ftest:all
+	./a cases.txt
 clean:
 	rm -rf a* tags *~
 

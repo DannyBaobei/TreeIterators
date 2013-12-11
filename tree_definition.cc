@@ -40,6 +40,16 @@ void TREE_constuct( TreeNode_p_t &theTree, TreeNode_p_t parentTree,  char* &theK
 {
     return TreeNode_s::ConstructTree(theTree, parentTree, theKeyWds);
 }
+void TREE_destroy(TreeNode_p_t *root)
+{
+    if(*root == NULL)
+        return;
+    TREE_destroy(&((*root)->lchild));
+    TREE_destroy(&((*root)->rchild));
+    delete *root;
+    *root = NULL;
+}
+
 
 void TREE_get_node_value( TreeNode_p_t &theTree, const void** data )
 {

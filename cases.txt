@@ -1,0 +1,13 @@
+AB#D##CE#F##
+0##
+01##
+02##
+01##2##
+012####
+0#1#2##
+ABCD####E#F#G##
+ABC#D##E#F#G##
+ABC#D##E##
+ABCD##E##FG##H##IJK##L##MN##O##
+ABC#D##E#F#G##HI#J##K##
+

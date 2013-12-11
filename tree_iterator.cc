@@ -35,17 +35,15 @@ class PostorderIterator : public Iterator {
 	public:
 		PostorderIterator(TreeNode_p_t node) {
 			TreeNode_p_t current = node;
-			mStack.push(current);
 			while (NULL != current) {
-				if(NULL != current->rchild)
-					mStack.push(current->rchild);
-				if(NULL != current->lchild)
+				mStack.push(current);
+				TreeNode_p_t next = current->rchild;
+				while(NULL !=  next)
 				{
-					mStack.push(current->lchild);
-					current = current->lchild;
+					mStack.push(next);
+					next = next->lchild !=NULL ? next->lchild: next->rchild;
 				}
-				else
-					current = current->rchild;
+				current = current->lchild;
 			}
 		}
 		virtual TreeNode_p_t next() {
@@ -54,18 +52,7 @@ class PostorderIterator : public Iterator {
 			}
 			TreeNode_p_t top = mStack.top();
 			mStack.pop();
-			while (NULL != top->rchild) {
-				TreeNode_p_t current = top->rchild;
-				if(NULL != current->rchild)
-					mStack.push(current->rchild);
-				if(NULL != current->lchild)
-				{
-					mStack.push(current->lchild);
-					current = current->lchild;
-				}
-				else
-					current = current->rchild;
-			}
+
 			return top;
 		}
 	private:

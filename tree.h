@@ -39,6 +39,7 @@ typedef void (*funcTravel) ( TreeNode_p_t root, funcVisitor fn);
 
 extern void TREE_traverse(TRAVEL_type_t mode, TreeNode_p_t root, funcVisitor fn);
 extern void TREE_constuct( TreeNode_p_t &theTree, TreeNode_p_t  parentTree,  char* &theKeyWds);
+extern void TREE_destroy(TreeNode_p_t *root);
 extern void TREE_get_node_value( TreeNode_p_t &theTree, const void** data );
 
 
