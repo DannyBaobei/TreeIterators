@@ -37,11 +37,12 @@ class PostorderIterator : public Iterator {
 			TreeNode_p_t current = node;
 			while (NULL != current) {
 				mStack.push(current);
-				TreeNode_p_t next = current->rchild;
+				TreeNode_p_t lnode = current->rchild;
 				while(NULL !=  next)
 				{
 					mStack.push(next);
-					next = next->lchild !=NULL ? next->lchild: next->rchild;
+					current = next;
+					next = next->rchild;
 				}
 				current = current->lchild;
 			}
@@ -63,8 +64,6 @@ class PreorderIterator : public Iterator {
 	public:
 		PreorderIterator(TreeNode_p_t node) {
 			TreeNode_p_t current = node;
-			if(NULL != current->rchild)
-				mStack.push(current->rchild);
 			mStack.push(current);
 			
 		}
@@ -74,16 +73,12 @@ class PreorderIterator : public Iterator {
 			}
 			TreeNode_p_t top = mStack.top();
 			mStack.pop();
+			if(NULL != top->rchild){
+				TreeNode_p_t current = top->rchild;
+				mStack.push(current);
+			}
 			if(NULL != top->lchild) {
 				TreeNode_p_t current = top->lchild;
-				if(NULL != current->rchild)
-					mStack.push(current->rchild);
-				mStack.push(current);
-			}else if(NULL != top->rchild){
-				mStack.pop();
-				TreeNode_p_t current = top->rchild;
-				if(NULL != current->rchild)
-					mStack.push(current->rchild);
 				mStack.push(current);
 			}
 			return top;

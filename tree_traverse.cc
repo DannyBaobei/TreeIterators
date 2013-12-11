@@ -108,7 +108,6 @@ void Trav_preorder_loop(TreeNode_p_t root, funcVisitor fn)
 			}
 		}
 	}
-trval_end:  return;
 }
 void Trav_postorder_loop(TreeNode_p_t root, funcVisitor fn)
 {
