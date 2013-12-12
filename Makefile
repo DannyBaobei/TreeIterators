@@ -7,9 +7,9 @@ test:all
 	./a
 
 ftest:all
-	./a cases.txt
+	./a cases.txt >result.txt
 clean:
-	rm -rf a* tags *~
+	rm -rf a* tags *~ result.txt
 
 
 

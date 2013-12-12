@@ -1,5 +1,6 @@
 #include "tree.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <stdio.h>
 
@@ -58,13 +59,13 @@ typedef struct TEST_iterator_procedure_s{
 
 
 TEST_visit_procedure_t process1[]={
-	{"pre-order result\r\nexpect",  TRAVEL_R_PRE_ORDER},
+	{"pre-order test\r\nexpect",  TRAVEL_R_PRE_ORDER},
 	{"goto  ",                        TRAVEL_G_PRE_ORDER},
 	{"loop  ",                        TRAVEL_L_PRE_ORDER},
-	{"in-order result\r\nexpect",   TRAVEL_R_IN_ORDER},
+	{"in-order test\r\nexpect",   TRAVEL_R_IN_ORDER},
 	{"goto  ",                        TRAVEL_G_IN_ORDER},
 	{"loop  ",                        TRAVEL_L_IN_ORDER},
-	{"post-order result\r\nexpect", TRAVEL_R_POST_ORDER},
+	{"post-order test\r\nexpect", TRAVEL_R_POST_ORDER},
 	{"goto  ",                        TRAVEL_G_POST_ORDER},
 	{"loop  ",                        TRAVEL_L_POST_ORDER}
 };
@@ -77,26 +78,32 @@ TEST_iterator_procedure_t process2[]={
 int main(int argc, char* argv[])
 {
 	FILE *pFile = NULL;
+    std::istream* pStream = NULL ;
+    std::ifstream aFile ;
+    bool useStd = true;
 	if(argc > 2) {
 		std::cerr<<" arguments more than 2"<< std::endl;
 		return 0;
 	} else if (argc == 2){
-		pFile = fopen (argv[1] , "r");
-		if (pFile == NULL)
+		 aFile.open (argv[1] , std::ifstream::in);
+		if (!aFile.is_open())
 		{
 			std::cerr<< "Error opening file"<<std::endl;
 			return 0;
 		}
+        pStream = &aFile;
+        useStd = false;
 	} else {
-		pFile = stdin;
+        pStream = &std::cin;
 	}
 
-	while (!feof(pFile)) {
+	while (useStd || !aFile.eof()) {
 		printf ("type a tree key words:\r\n");
 		TreeNode_p_t aTree = NULL;
 		char keys[256]={0};
-		std::cin.getline (keys,256);
+		(*pStream).getline(keys,256);
 		char* keywds = keys;
+        std::cout<<"accept a case:"<<keywds<<std::endl;
 		TREE_constuct( aTree, NULL, keywds);
 		if(!aTree) break;
 		for(int id = 0; id< 3; ++id) {
@@ -115,7 +122,7 @@ int main(int argc, char* argv[])
 		TREE_destroy(&aTree);
 		printf ("\r\n");
 	}
-	fclose(pFile);
+    aFile.close();
 	printf("test end!\r\n");
 	return 0;
 }
