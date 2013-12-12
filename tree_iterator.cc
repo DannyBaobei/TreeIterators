@@ -36,7 +36,7 @@ class PostorderIterator : public Iterator {
 		PostorderIterator(TreeNode_p_t node) {
 			TreeNode_p_t current = node;
 			while(NULL != current){
-                mStack.push(current);
+				mStack.push(current);
 				while (NULL != current->lchild) {
 					mStack.push(current->lchild);
 					current = current->lchild;
@@ -57,7 +57,7 @@ class PostorderIterator : public Iterator {
 				return result;
 			TreeNode_p_t current = top->rchild;
 			while(NULL != current){
-                mStack.push(current);
+				mStack.push(current);
 				while (NULL != current->lchild) {
 					mStack.push(current->lchild);
 					current = current->lchild;
@@ -75,7 +75,7 @@ class PreorderIterator : public Iterator {
 		PreorderIterator(TreeNode_p_t node) {
 			TreeNode_p_t current = node;
 			mStack.push(current);
-			
+
 		}
 		virtual TreeNode_p_t next() {
 			if (mStack.empty()) {
@@ -99,20 +99,20 @@ class PreorderIterator : public Iterator {
 
 Iterator* Iterator::AskIterator(ITERATOR_type_t type, TreeNode_p_t root)
 {
-    switch(type)
-    {
-        case ITERATOR_PRE_ORDER:
-            return new PreorderIterator(root);
-            break;
-        case ITERATOR_IN_ORDER:
-            return new InorderIterator(root);
-            break;
-        case ITERATOR_POST_ORDER:
-            return new PostorderIterator(root);
-            break;
-    };
+	switch(type)
+	{
+		case ITERATOR_PRE_ORDER:
+			return new PreorderIterator(root);
+			break;
+		case ITERATOR_IN_ORDER:
+			return new InorderIterator(root);
+			break;
+		case ITERATOR_POST_ORDER:
+			return new PostorderIterator(root);
+			break;
+	};
 }
 void Iterator::Release(Iterator* iter)
 {
-    delete iter;
+	delete iter;
 }

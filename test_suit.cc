@@ -12,38 +12,38 @@ void printNode(TreeNode_p_t node)
 	const char* data =NULL;
 	TREE_get_node_value(node, (const void **) &data);
 	std::cout<< *data;
-    __result[__resultId].push_back(*data);
+	__result[__resultId].push_back(*data);
 }
 
 
 void TEST_foreach_method (TreeNode_p_t root, TRAVEL_type_t type, const char* msg)
 {
-    __result[__resultId].clear();
+	__result[__resultId].clear();
 	std::cout<<msg<<":";
 	TREE_traverse(type, root, printNode);
-    if(__resultId == 0 )
-        return;
-    if(__result[0] == __result[1] )
-        std::cout<<":pass";
-    else
-        std::cout<<":fail";
+	if(__resultId == 0 )
+		return;
+	if(__result[0] == __result[1] )
+		std::cout<<":pass";
+	else
+		std::cout<<":fail";
 
 }
 
 void TEST_iterator_method (TreeNode_p_t root, ITERATOR_type_t type, const char* msg)
 {
-    __result[__resultId].clear();
+	__result[__resultId].clear();
 	std::cout<<msg<<":";
 	Iterator *it = Iterator::AskIterator(type, root);
 	for (TreeNode_p_t node = it->next();  node != NULL; node = it->next())
 		printNode(node);
 	Iterator::Release(it);
-    if(__resultId == 0 )
-        return;
-    if(__result[0] == __result[1] )
-        std::cout<<":pass";
-    else
-        std::cout<<":fail";
+	if(__resultId == 0 )
+		return;
+	if(__result[0] == __result[1] )
+		std::cout<<":pass";
+	else
+		std::cout<<":fail";
 }
 
 typedef struct TEST_visit_procedure_s{
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 		pFile = fopen (argv[1] , "r");
 		if (pFile == NULL)
 		{
-            std::cerr<< "Error opening file"<<std::endl;
+			std::cerr<< "Error opening file"<<std::endl;
 			return 0;
 		}
 	} else {
@@ -100,10 +100,10 @@ int main(int argc, char* argv[])
 		TREE_constuct( aTree, NULL, keywds);
 		if(!aTree) break;
 		for(int id = 0; id< 3; ++id) {
-            __resultId = 0;
+			__resultId = 0;
 			TEST_foreach_method(aTree, process1[id*3].type,   process1[id*3].msg);
 			std::cout<< std::endl;
-            __resultId++;
+			__resultId++;
 			TEST_foreach_method(aTree, process1[id*3+1].type, process1[id*3+1].msg);
 			std::cout<< std::endl;
 			TEST_foreach_method(aTree, process1[id*3+2].type, process1[id*3+2].msg);
