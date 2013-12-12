@@ -35,26 +35,36 @@ class PostorderIterator : public Iterator {
 	public:
 		PostorderIterator(TreeNode_p_t node) {
 			TreeNode_p_t current = node;
-			while (NULL != current) {
-				mStack.push(current);
-				TreeNode_p_t lnode = current->rchild;
-				while(NULL !=  next)
-				{
-					mStack.push(next);
-					current = next;
-					next = next->rchild;
+			while(NULL != current){
+                mStack.push(current);
+				while (NULL != current->lchild) {
+					mStack.push(current->lchild);
+					current = current->lchild;
 				}
-				current = current->lchild;
+				current = current->rchild;
 			}
 		}
 		virtual TreeNode_p_t next() {
 			if (mStack.empty()) {
 				return NULL;
 			}
-			TreeNode_p_t top = mStack.top();
+			TreeNode_p_t result = mStack.top();
 			mStack.pop();
-
-			return top;
+			if(mStack.empty())
+				return result;
+			TreeNode_p_t top = mStack.top();
+			if(top->rchild == result)
+				return result;
+			TreeNode_p_t current = top->rchild;
+			while(NULL != current){
+                mStack.push(current);
+				while (NULL != current->lchild) {
+					mStack.push(current->lchild);
+					current = current->lchild;
+				}
+				current = current->rchild;
+			}
+			return result;
 		}
 	private:
 		std::stack<TreeNode_p_t> mStack;
