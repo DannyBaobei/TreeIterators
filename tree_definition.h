@@ -16,20 +16,22 @@ struct TreeNode_s {
 #define DATA_type int
 struct TreeNode_s {
 	DATA_type data;
-    bool isRed ;
+	bool isRed ;
 	struct TreeNode_s *parent, *lchild, *rchild;
 	TreeNode_s( DATA_type  theData);
 	static void ConstructTree( TreeNode_p_t &theTree, TreeNode_p_t parentTree,  char* &theKeyWds);
 };
 #endif
 
-struct List;
-TreeNode_p_t first(List* list1);
-List* rest(List* list1);
-List* Empty() ;
-List* Singleton(TreeNode_p_t e) ;
-List* Append(List* list1, List* list2);
-List* make_binary_tree_iterator(TreeNode_p_t node) ;
+typedef struct List *List_p_t;
+TreeNode_p_t first(List_p_t list1);
+List_p_t rest(List_p_t list1);
+List_p_t Empty() ;
+List_p_t Singleton(TreeNode_p_t e) ;
+List_p_t Append(List_p_t list1, List_p_t list2);
+List_p_t make_inorder_tree_iterator(TreeNode_p_t node) ;
+List_p_t make_preorder_tree_iterator(TreeNode_p_t node) ;
+List_p_t make_postorder_tree_iterator(TreeNode_p_t node) ;
 
 void Trav_inorder_goto(TreeNode_p_t root, funcVisitor fn);
 void Trav_preorder_goto(TreeNode_p_t root, funcVisitor fn);
