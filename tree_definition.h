@@ -23,6 +23,14 @@ struct TreeNode_s {
 };
 #endif
 
+struct List;
+TreeNode_p_t first(List* list1);
+List* rest(List* list1);
+List* Empty() ;
+List* Singleton(TreeNode_p_t e) ;
+List* Append(List* list1, List* list2);
+List* make_binary_tree_iterator(TreeNode_p_t node) ;
+
 void Trav_inorder_goto(TreeNode_p_t root, funcVisitor fn);
 void Trav_preorder_goto(TreeNode_p_t root, funcVisitor fn);
 void Trav_postorder_goto(TreeNode_p_t root, funcVisitor fn);

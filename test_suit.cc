@@ -36,6 +36,8 @@ void TEST_iterator_method (TreeNode_p_t root, ITERATOR_type_t type, const char* 
 	__result[__resultId].clear();
 	std::cout<<msg<<":";
 	Iterator *it = Iterator::AskIterator(type, root);
+    if(NULL == it)
+        return;
 	for (TreeNode_p_t node = it->next();  node != NULL; node = it->next())
 		printNode(node);
 	Iterator::Release(it);
@@ -70,9 +72,12 @@ TEST_visit_procedure_t process1[]={
 	{"loop  ",                        TRAVEL_L_POST_ORDER}
 };
 TEST_iterator_procedure_t process2[]={
-	{"iter  ",            ITERATOR_PRE_ORDER},
-	{"iter  ",             ITERATOR_IN_ORDER},
-	{"iter  ",           ITERATOR_POST_ORDER}
+	{"stack iter  ",            ITERATOR_PRE_ORDER},
+	{"stack iter  ",             ITERATOR_IN_ORDER},
+	{"stack iter  ",           ITERATOR_POST_ORDER},
+	{"lazy iter   ",           ITERATOR_PRE_ORDER_LAZY},
+	{"lazy iter   ",           ITERATOR_IN_ORDER_LAZY},
+	{"lazy iter   ",           ITERATOR_POST_ORDER_LAZY}
 };
 
 int main(int argc, char* argv[])
@@ -116,6 +121,8 @@ int main(int argc, char* argv[])
 			TEST_foreach_method(aTree, process1[id*3+2].type, process1[id*3+2].msg);
 			std::cout<< std::endl;
 			TEST_iterator_method(aTree, process2[id].type, process2[id].msg);
+			std::cout<< std::endl;
+			TEST_iterator_method(aTree, process2[id+3].type, process2[id+3].msg);
 			std::cout<< std::endl;
 			std::cout<< std::endl;
 		}

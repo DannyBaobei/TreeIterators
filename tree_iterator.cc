@@ -97,6 +97,19 @@ class PreorderIterator : public Iterator {
 		std::stack<TreeNode_p_t> mStack;
 };
 
+class InorderLazyIterator : public Iterator {
+	public:
+		InorderLazyIterator(TreeNode_p_t node):m_list(NULL) {
+            m_list = make_binary_tree_iterator(node);
+		}
+		virtual TreeNode_p_t next() {
+            TreeNode_p_t node = first(m_list);
+            m_list = rest(m_list);
+            return node;
+		}
+	private:
+		List* m_list;
+};
 Iterator* Iterator::AskIterator(ITERATOR_type_t type, TreeNode_p_t root)
 {
 	switch(type)
@@ -110,7 +123,13 @@ Iterator* Iterator::AskIterator(ITERATOR_type_t type, TreeNode_p_t root)
 		case ITERATOR_POST_ORDER:
 			return new PostorderIterator(root);
 			break;
+		case ITERATOR_IN_ORDER_LAZY:
+			return new InorderLazyIterator(root);
+			break;
+        default:
+            break;
 	};
+    return NULL;
 }
 void Iterator::Release(Iterator* iter)
 {
