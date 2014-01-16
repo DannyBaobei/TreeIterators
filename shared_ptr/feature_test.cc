@@ -23,6 +23,7 @@ struct D {
     }
 };
 typedef std::shared_ptr<Foo> Foo_share_p_t;
+typedef const std::shared_ptr<Foo>& Foo_share_pc_t;
 
 //NOTE:using a simple way declaration instead of std::shared_ptr<Foo> 
 Foo_share_p_t ext_constructor()
@@ -31,6 +32,13 @@ Foo_share_p_t ext_constructor()
      std::cout << "sh in ext_constructor is null: "<<!sh << '\n';
      std::cout << "sh in ext_constructor use count" <<sh.use_count() << '\n';
      return sh;
+}
+
+void test_pass_by_const_ref(Foo_share_pc_t ptr)
+{
+
+     std::cout << "const ptr reference in ext_constructor is null: "<<!ptr << '\n';
+     std::cout << "const ptr reference in ext_constructor use count" <<ptr.use_count() << '\n';
 }
 
 int main()
@@ -75,6 +83,16 @@ int main()
         Foo_share_p_t sh6 = ext_constructor();
         std::cout << "sh6 is null: "<<!sh6 << '\n';
         std::cout << "sh6 use count" <<sh6.use_count() << '\n';
+        test_pass_by_const_ref(sh6);
+        std::cout << "call sh6.reset(new Foo)\n";
+        sh6.reset( new Foo);
+        std::cout << "sh6 is null: "<<!sh6 << '\n';
+        std::cout << "sh6 use count" <<sh6.use_count() << '\n';
+        std::cout << "call sh6.reset()\n";
+        sh6.reset();
+        std::cout << "sh6 is null: "<<!sh6 << '\n';
+        std::cout << "sh6 use count" <<sh6.use_count() << '\n';
+
     }
     {
         //3, 6

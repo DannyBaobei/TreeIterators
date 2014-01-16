@@ -56,10 +56,10 @@ List_p_t make_inorder_tree_iterator(TreeNode_p_t node)
     if(!node)
         return NULL;
 	List_p_t listNode = new List();
-	listNode->first = [=]()mutable {
+	listNode->first = [node]()mutable {
 		return NULL != node->lchild ? first(make_inorder_tree_iterator(node->lchild)) : node;
 	};
-	listNode->rest = [=]()mutable {
+	listNode->rest = [node]()mutable {
 		List_p_t left_it = (NULL == node->lchild ? NULL : make_inorder_tree_iterator(node->lchild));
 		List_p_t root_it = Singleton(node);
 		List_p_t right_it = (NULL == node->rchild ? NULL : make_inorder_tree_iterator(node->rchild));
@@ -74,10 +74,10 @@ List_p_t make_preorder_tree_iterator(TreeNode_p_t node)
     if(!node)
         return NULL;
 	List_p_t listNode = new List();
-	listNode->first = [=]()mutable {
+	listNode->first = [node]()mutable {
 		return node;
 	};
-	listNode->rest = [=]()mutable {
+	listNode->rest = [node]()mutable {
 		List_p_t left_it = (NULL == node->lchild ? NULL : make_preorder_tree_iterator(node->lchild));
 		List_p_t root_it = Singleton(node);
 		List_p_t right_it = (NULL == node->rchild ? NULL : make_preorder_tree_iterator(node->rchild));
@@ -92,12 +92,12 @@ List_p_t make_postorder_tree_iterator(TreeNode_p_t node)
     if(!node)
         return NULL;
 	List_p_t listNode = new List();
-	listNode->first = [=]()mutable {
+	listNode->first = [node]()mutable {
         if(NULL == node->lchild  &&  NULL == node->rchild)
             return node;
 		return NULL != node->lchild ? first(make_postorder_tree_iterator(node->lchild)) : first(make_postorder_tree_iterator(node->rchild)) ;
 	};
-	listNode->rest = [=]()mutable {
+	listNode->rest = [node]()mutable {
 		List_p_t left_it = (NULL == node->lchild ? NULL : make_postorder_tree_iterator(node->lchild));
 		List_p_t root_it = Singleton(node);
 		List_p_t right_it = (NULL == node->rchild ? NULL : make_postorder_tree_iterator(node->rchild));
