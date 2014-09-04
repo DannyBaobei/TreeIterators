@@ -31,6 +31,7 @@ void TreeNode_s::ConstructTree( TreeNode_p_t &theTree, TreeNode_p_t parentTree, 
 		if(!theKeyWds|| *theKeyWds == '\0')
 			return;
 		ConstructTree(theTree->rchild, theTree, theKeyWds);
+        
 	}
 }
 

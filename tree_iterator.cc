@@ -2,7 +2,6 @@
 #include <cstddef>
 #include <stack>
 
-
 class InorderIterator : public Iterator {
 	public:
 		InorderIterator(TreeNode_p_t node) {

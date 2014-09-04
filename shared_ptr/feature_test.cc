@@ -36,63 +36,74 @@ Foo_share_p_t ext_constructor()
 
 void test_pass_by_const_ref(Foo_share_pc_t ptr)
 {
-
-     std::cout << "const ptr reference in ext_constructor is null: "<<!ptr << '\n';
-     std::cout << "const ptr reference in ext_constructor use count" <<ptr.use_count() << '\n';
+     std::cout << "const ptr reference in test_pass_by_const_ref is null: "<<!ptr << '\n';
+     std::cout << "const ptr reference in test_pass_by_const_ref use count" <<ptr.use_count() << '\n';
 }
-
+void print_ptr(Foo_share_pc_t ptr, const char* name, const char* func = "")
+{
+     std::cout << name << " is null: "<< func <<!ptr << '\n';
+     std::cout << name <<" use count" << func <<ptr.use_count() << '\n';
+}
+void test_pass_by_shared_ptr(Foo_share_p_t ptr)
+{
+     std::cout << "ptr in test_pass_by_shared_ptr is null: "<<!ptr << '\n';
+     std::cout << "ptr in test_pass_by_shared_ptr use count" <<ptr.use_count() << '\n';
+}
 int main()
 {
     {
         // 1 , 2, 4
         std::cout << "constructor with no managed object\n";
         Foo_share_p_t sh1;
-        std::cout << sh1.use_count() << '\n';
-        std::cout << "is null: "<<!sh1 << '\n';
+        print_ptr(sh1, "sh1");
     }
  
     {
         //2
         std::cout << "constructor with object\n";
         Foo_share_p_t sh2(new Foo);
-        std::cout << "sh2 is null: "<<!sh2 << '\n';
-        std::cout << "sh2 use count" <<sh2.use_count() << '\n';
+        print_ptr(sh2, "sh2");
         Foo_share_p_t sh3(sh2);
-        std::cout << "sh2 is null: "<<!sh2 << '\n';
-        std::cout << "sh2 use count" <<sh2.use_count() << '\n';
-        std::cout << "sh3 is null: "<<!sh3 << '\n';
-        std::cout << "sh3 use count" <<sh3.use_count() << '\n';
+        print_ptr(sh2, "sh2");
+        print_ptr(sh3, "sh3");
         Foo_share_p_t sh4 = sh2;
-        std::cout << "sh2 is null: "<<!sh2 << '\n';
-        std::cout << "sh2 use count" <<sh2.use_count() << '\n';
-        std::cout << "sh3 is null: "<<!sh3 << '\n';
-        std::cout << "sh3 use count" <<sh3.use_count() << '\n';
-        std::cout << "sh4 is null: "<<!sh4 << '\n';
-        std::cout << "sh4 use count" <<sh4.use_count() << '\n';
+        print_ptr(sh2, "sh2");
+        print_ptr(sh3, "sh3");
+        print_ptr(sh4, "sh4");
         sh2->dosomething();
     }
  
+    {
+        //5
+        std::cout << "constructor using factory\n";
+        Foo_share_p_t sh6 = ext_constructor();
+        print_ptr(sh6, "sh6");
+
+        std::cout << "pass shared_ptr const reference\n";
+        test_pass_by_const_ref(sh6);
+
+        std::cout << "before pass shared_ptr by value\n";
+        print_ptr(sh6, "sh6");
+        test_pass_by_shared_ptr(sh6);
+        std::cout << "after pass shared_ptr by value\n";
+        print_ptr(sh6, "sh6");
+
+        std::cout << "copy on write\n";
+        sh6.reset( new Foo);
+        print_ptr(sh6, "sh6");
+
+        std::cout << "call sh6.reset()\n";
+        sh6.reset();
+        print_ptr(sh6, "sh6");
+    }
     {
         //7
         std::cout << "constructor with object and deleter\n";
         Foo_share_p_t sh5(new Foo, D());
     }
     {
-        //5
-        std::cout << "constructor using factory\n";
-        Foo_share_p_t sh6 = ext_constructor();
-        std::cout << "sh6 is null: "<<!sh6 << '\n';
-        std::cout << "sh6 use count" <<sh6.use_count() << '\n';
-        test_pass_by_const_ref(sh6);
-        std::cout << "call sh6.reset(new Foo)\n";
-        sh6.reset( new Foo);
-        std::cout << "sh6 is null: "<<!sh6 << '\n';
-        std::cout << "sh6 use count" <<sh6.use_count() << '\n';
-        std::cout << "call sh6.reset()\n";
-        sh6.reset();
-        std::cout << "sh6 is null: "<<!sh6 << '\n';
-        std::cout << "sh6 use count" <<sh6.use_count() << '\n';
-
+        std::cout << "constructor when calling other method\n";
+        print_ptr(ext_constructor(), "temp shared_ptr");
     }
     {
         //3, 6
