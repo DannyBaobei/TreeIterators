@@ -15,6 +15,8 @@ set (DATE_SOURCE "${ROOT}/test_suit.cc"
 		"${ROOT}/tree_iterator.cc" 
 		"${ROOT}/tree_lazy_iterator.cc" 
 		"${ROOT}/tree_traverse.cc" 
+		"${ROOT}/vczh/gc_ptr.cpp"
+		"${ROOT}/vczh/gc_ptr.h"
 		)
 
 
