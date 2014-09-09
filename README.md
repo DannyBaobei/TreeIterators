@@ -1,4 +1,4 @@
-algorithm_learn
+TreeIterators
 ===============
 
-Learning data structure and algorithm
+This project shows multiple ways to implement the iterators for a binary tree
